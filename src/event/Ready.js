@@ -1,46 +1,12 @@
+const Stock = require('../modules/Stock')
+
 module.exports = async (client) => {
   const randomIndex = (array) => {
     return array[Math.floor(Math.random() * array.length)]
   }
   client.on('ready', async () => {
-    console.log(
-      client.color('cyan', '[Bot]'),
-      `Logged on ${client.user.username}`
-    )
-    setTimeout(async () => {
-      const userdb = await client.db.find().toArray()
-      let lottoNumber = []
-      for (let i = 0; i < 5; i++) {
-        lottoNumber.push(
-          randomIndex(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
-        )
-      }
-      let result = []
-      userdb.map((user) => {
-        if (user.lotto) {
-          user.lotto.map((lotto) => {
-            lotto.num.map((num, indexNum) => {
-              console.log(user._id)
-              if (num === lottoNumber[indexNum]) {
-                const resultIndex = result.findIndex(
-                  (obj) => obj._id === user._id
-                )
-                console.log(resultIndex)
-                if (resultIndex === -1) {
-                  result.push({
-                    correctNumber: 1,
-                    _id: user._id,
-                  })
-                } else {
-                  result[resultIndex].correctNumber++
-                }
-              }
-            })
-          })
-        }
-      })
-      console.log(result)
-    }, 3000)
+    // TODO 이거 코드 정리 마렵네
+    console.log(client.color('cyan', '[Bot]'), `Logged on ${client.user.username}`)
     setInterval(() => {
       switch (Math.floor(Math.random() * 6)) {
       case 0:
@@ -109,7 +75,9 @@ module.exports = async (client) => {
       }
     }, 10000)
   })
+
   client.on('ready', async () => {
+<<<<<<< HEAD
     if (client.mode == 'hosting') {
       setTimeout(async () => {
         client.status = '정상 운영중...'
@@ -145,14 +113,27 @@ module.exports = async (client) => {
       client.status = '정상 운영중...'
     }
 
+=======
+    const stockUpdateRate = 1000 * 60 // 600000
+    setTimeout(async () => {
+      client.status = '정상 운영중...'
+      client.lastStockUpdate = Date.now()
+      Stock.update(client)
+    }, 1000)
+    setInterval(() => Stock.update(client), stockUpdateRate)
+>>>>>>> master
     setTimeout(async () => {
       const season = await client.data.findOne({ _id: 'season' })
       client.season = season.data
       client.status = '정상 운영중...'
     }, 2000)
   })
+<<<<<<< HEAD
 }
 
 function float2int(value) {
   return value | 0
 }
+=======
+}
+>>>>>>> master

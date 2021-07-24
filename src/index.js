@@ -11,8 +11,8 @@ const Modules = require('./modules')
 
 // Variables
 require('dotenv').config()
-const PORT = process.env.PORT || 3000
-const prefix = process.env.PREFIX
+// const PORT = process.env.PORT || 3000
+const prefix = process.env.PREFIX || '인트야 '
 client.status = '오프라인'
 
 // Discord bot client
@@ -26,6 +26,7 @@ client.developers = [
   '647736678815105037',
   '694131960125325374',
   '648022788002676737',
+  '358204005316296706'
 ]
 client.commands = new Discord.Collection()
 client.module = Modules
@@ -36,16 +37,18 @@ client.mode = process.env.MODE || 'hosting'
 function color(color, ...string) {
   if (!Modules.colorData[color])
     throw new TypeError(`There is no color ${color}`)
-  else
-    return `${Modules.colorData[color]}${string.join(' ')}${
-      Modules.colorData.reset
-    }`
+  else 
+    return `${Modules.colorData[color]}${string.join(' ')}${Modules.colorData.reset}`
 }
 
 // Booting
 (async () => {
   client.status = '부팅중...'
-  await Modules.dataBase(client)
+  await Modules.dataBase.connect()
+  const db = Modules.dataBase.db
+
+  for (let i of Object.entries(db)) 
+    client[i[0]] = i[1]
 
   console.clear()
   console.log(
@@ -61,5 +64,4 @@ function color(color, ...string) {
   client.login(process.env.BOT_TOKEN)
   await Event.ready(client)
   await Modules.handler(client, prefix, Modules)
-  await Modules.web(client, PORT)
 })()
