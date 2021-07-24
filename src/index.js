@@ -1,4 +1,5 @@
 // Start Up
+require('dotenv').config()
 process.title = `Intbot - Ver. ${require('../package.json').version}, ${
   process.platform
 }-${process.arch}`
@@ -11,7 +12,6 @@ const Event = require('./event')
 const Modules = require('./modules')
 
 // Variables
-require('dotenv').config()
 // const PORT = process.env.PORT || 3000
 const prefix = process.env.PREFIX || '인트야 '
 client.status = '오프라인'
@@ -59,6 +59,7 @@ function color(color, ...string) {
   console.log(
     '---------------------------------------------------------------------'
   )
+  console.log(client.color('blue', '[System] '), `Using on ${process.mode}`)
   console.log(client.color('blue', '[System] '), process.title)
 
   client.login(process.env.BOT_TOKEN)

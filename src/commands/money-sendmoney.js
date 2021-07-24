@@ -143,7 +143,6 @@ module.exports = {
             chkMsg.edit({
               embed: embed,
             })
-            console.log(collected)
           })
       } else {
         return message.reply('인트 돈시스템에 가입하지 않았습니다.')
