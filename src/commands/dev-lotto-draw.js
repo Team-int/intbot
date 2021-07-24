@@ -27,7 +27,7 @@ module.exports = {
 		
 		embed
 					.setTitle('주의하세요!')
-					.setDescription('로또 구매')
+					.setDescription(`로또 구매한 이용자 : `)
 					.setColor('RED')
 					.setFooter(`로또 시스템은 딱 1번만 동의문이 나옵니다.`)
 					.setTimestamp();
