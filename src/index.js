@@ -2,6 +2,7 @@
 process.title = `Intbot - Ver. ${require('../package.json').version}, ${
   process.platform
 }-${process.arch}`
+process.mode = process.env.MODE || 'hosting'
 
 // Dependencies
 const Discord = require('discord.js')
@@ -31,7 +32,6 @@ client.developers = [
 client.commands = new Discord.Collection()
 client.module = Modules
 client.color = color
-client.mode = process.env.MODE || 'hosting'
 
 // Function
 function color(color, ...string) {
