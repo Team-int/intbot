@@ -53,7 +53,6 @@ module.exports = {
       async (message, user, num, bonus) => {
         num.pop()
         bonus.pop()
-        setTimeout(() => {})
         const filter = (reaction, _user) =>
           ['✅', '❌'].includes(reaction.emoji.name) && _user.id === user.id
         const clc = await message.awaitReactions(filter, { max: 1 })
@@ -87,7 +86,7 @@ module.exports = {
               $push: {
                 lotto: {
                   num,
-                  bonus,
+						bonus,
                 },
               },
             }
@@ -103,9 +102,9 @@ module.exports = {
 
     switch (option) {
       case possibleOption[0]:
-        if (userdb.lotto && userdb.lotto.length > 50)
+        if (userdb.lotto && userdb.lotto.length > 20)
           return message.reply(
-            '로또는 최대 50장 까지 구매가 가능합니다.(테스트)'
+            '로또는 최대 50장 까지 구매가 가능합니다.'
           )
 
         if (!subOption) return message.reply('`자동/수동`을 선택해주세요')
@@ -230,10 +229,9 @@ module.exports = {
         for (let i in userdb.lotto)
           embed.addField(
             `${Number(i) + 1}번 로또`,
-            `${userdb.lotto[i].num.join(' ')} +${userdb.lotto[i].bonus.join(
+            `${userdb.lotto[i].num.join(' ')} + ${userdb.lotto[i].bonus.join(
               ' '
-            )}`
-          )
+            )}`, true)
         message.reply(embed)
         break
     }

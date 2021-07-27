@@ -37,9 +37,10 @@ module.exports = {
         client.color('blue', '[System] ') +
           `Loading ${client.commands.size} commands`
       )
-      client.commands.clear()
-      client.aliases.clear()
+      
       var i = 0
+		client.commands.clear()
+      client.aliases.clear()
       for (let x of list) {
         i++
         delete require.cache[require.resolve(`${__dirname}/${x}`)]
