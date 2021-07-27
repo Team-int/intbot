@@ -39,7 +39,7 @@ module.exports = {
       )
       
       var i = 0
-		client.commands.clear()
+      client.commands.clear()
       client.aliases.clear()
       for (let x of list) {
         i++

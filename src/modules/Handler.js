@@ -93,7 +93,7 @@ module.exports = async (client, prefix, Modules) => {
       }
     } else if (client.status.includes('점검중')) {
       if (message.content.startsWith(prefix + 'dok')) return
-		if (message.content.startsWith(prefix + '점검')) return client.commands.get('점검').run(client, message, args)
+      if (message.content.startsWith(prefix + '점검')) return client.commands.get('점검').run(client, message, args)
       if (client.commands.get(args[0])) {
         return message.channel.send(
           '현재 인트봇이 점검중이며 일부 기능을 이용할수 없습니다.'

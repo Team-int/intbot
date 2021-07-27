@@ -13,113 +13,113 @@ module.exports = {
       )
     if (client.status.includes('정상 운영중')) {
 		 let embed = new MessageEmbed()
-          .setTitle('정말로 점검 모드로 전환하시겠습니까?')
-          .setColor('YELLOW')
-          .setDescription('점검 모드로 전환시 일부 기능이 제한됩니다.')
-          .setTimestamp()
-          .setFooter(
-            `${message.author.tag}\u200b`,
-            message.author.displayAvatarURL({
-              dynamic: true,
-            })
-          )
-        let chkMsg = await message.channel.send({
-          embed: embed,
-        })
-        chkMsg.react('✅').then(() => chkMsg.react('❌'))
+        .setTitle('정말로 점검 모드로 전환하시겠습니까?')
+        .setColor('YELLOW')
+        .setDescription('점검 모드로 전환시 일부 기능이 제한됩니다.')
+        .setTimestamp()
+        .setFooter(
+          `${message.author.tag}\u200b`,
+          message.author.displayAvatarURL({
+            dynamic: true,
+          })
+        )
+      let chkMsg = await message.channel.send({
+        embed: embed,
+      })
+      chkMsg.react('✅').then(() => chkMsg.react('❌'))
 		  const filter = (reaction, user) => {
-          return (
-            ['✅', '❌'].includes(reaction.emoji.name) &&
+        return (
+          ['✅', '❌'].includes(reaction.emoji.name) &&
             user.id === message.author.id
-          )
-        }
+        )
+      }
 		  
 		  chkMsg
-          .awaitReactions(filter, { max: 1 })
-          .then((collected) => {
-            const reaction = collected.first()
+        .awaitReactions(filter, { max: 1 })
+        .then((collected) => {
+          const reaction = collected.first()
 
-            if (reaction.emoji.name === '✅') {
-              embed
-                .setTitle('안내사항')
-                .setDescription('점검모드로 전환되었습니다.')
-                .setColor('RED')
-                .setFooter(
-                  `점검모드로 전환될시 일부 기능이 제한됩니다.`,
-                  message.author.displayAvatarURL({
-                    dynamic: true,
-                  })
-                )
-                .setTimestamp()
-				  client.status = "점검중"
-              chkMsg.edit({
-                embed: embed,
-              })
-            } else {
-              embed
-                .setTitle('취소 완료')
-                .setDescription('일반 모드로 진행중입니다...')
+          if (reaction.emoji.name === '✅') {
+            embed
+              .setTitle('안내사항')
+              .setDescription('점검모드로 전환되었습니다.')
+              .setColor('RED')
+              .setFooter(
+                '점검모드로 전환될시 일부 기능이 제한됩니다.',
+                message.author.displayAvatarURL({
+                  dynamic: true,
+                })
+              )
+              .setTimestamp()
+				  client.status = '점검중'
+            chkMsg.edit({
+              embed: embed,
+            })
+          } else {
+            embed
+              .setTitle('취소 완료')
+              .setDescription('일반 모드로 진행중입니다...')
 					 .setColor('GREEN')
-              chkMsg.edit({
-                embed: embed,
-              })
-            }
-          })
-    }
-if (!client.status.includes('정상 운영중')) {
-		 let embed = new MessageEmbed()
-          .setTitle('정말로 일반 모드로 전환하시겠습니까?')
-          .setColor('YELLOW')
-          .setDescription('일반 모드로 전환시 이용자들이 모든 기능을 이용할수 있게 됩니다.')
-          .setTimestamp()
-          .setFooter(
-            `${message.author.tag}\u200b`,
-            message.author.displayAvatarURL({
-              dynamic: true,
+            chkMsg.edit({
+              embed: embed,
             })
-          )
-        let chkMsg = await message.channel.send({
-          embed: embed,
+          }
         })
-        chkMsg.react('✅').then(() => chkMsg.react('❌'))
+    }
+    if (!client.status.includes('정상 운영중')) {
+		 let embed = new MessageEmbed()
+        .setTitle('정말로 일반 모드로 전환하시겠습니까?')
+        .setColor('YELLOW')
+        .setDescription('일반 모드로 전환시 이용자들이 모든 기능을 이용할수 있게 됩니다.')
+        .setTimestamp()
+        .setFooter(
+          `${message.author.tag}\u200b`,
+          message.author.displayAvatarURL({
+            dynamic: true,
+          })
+        )
+      let chkMsg = await message.channel.send({
+        embed: embed,
+      })
+      chkMsg.react('✅').then(() => chkMsg.react('❌'))
 		  const filter = (reaction, user) => {
-          return (
-            ['✅', '❌'].includes(reaction.emoji.name) &&
+        return (
+          ['✅', '❌'].includes(reaction.emoji.name) &&
             user.id === message.author.id
-          )
-        }
+        )
+      }
 		  
 		  chkMsg
-          .awaitReactions(filter, { max: 1 })
-          .then((collected) => {
-            const reaction = collected.first()
+        .awaitReactions(filter, { max: 1 })
+        .then((collected) => {
+          const reaction = collected.first()
 
-            if (reaction.emoji.name === '✅') {
-              embed
-                .setTitle('안내사항')
-                .setDescription('일반 모드로 전환되었습니다.')
-                .setColor('GREEN')
-                .setFooter(
-                  `이제 모든 기능을 이용할수 있어요!`,
-                  message.author.displayAvatarURL({
-                    dynamic: true,
-                  })
-                )
-                .setTimestamp()
+          if (reaction.emoji.name === '✅') {
+            embed
+              .setTitle('안내사항')
+              .setDescription('일반 모드로 전환되었습니다.')
+              .setColor('GREEN')
+              .setFooter(
+                '이제 모든 기능을 이용할수 있어요!',
+                message.author.displayAvatarURL({
+                  dynamic: true,
+                })
+              )
+              .setTimestamp()
 				  client.status = '정상 운영중'
-              chkMsg.edit({
-                embed: embed,
-              })
-            } else {
-              embed
-                .setTitle('취소 완료')
-                .setDescription('점검 모드로 진행중입니다...')
+            chkMsg.edit({
+              embed: embed,
+            })
+          } else {
+            embed
+              .setTitle('취소 완료')
+              .setDescription('점검 모드로 진행중입니다...')
 					 .setColor('RED')
-              chkMsg.edit({
-                embed: embed,
-              })
-            }
-          })
+            chkMsg.edit({
+              embed: embed,
+            })
+          }
+        })
     }
   },
 }

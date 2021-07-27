@@ -83,10 +83,10 @@ module.exports = async (client) => {
 
     setInterval(() => Stock.update(client), stockUpdateRate)
     setTimeout(async () => {
-		const allData = await client.data.find().toArray()
-		for (let data of allData) {
-			client[data._id] = data.data
-		}
+      const allData = await client.data.find().toArray()
+      for (let data of allData) {
+        client[data._id] = data.data
+      }
       client.status = '정상 운영중...'
     }, 2000)
   })
